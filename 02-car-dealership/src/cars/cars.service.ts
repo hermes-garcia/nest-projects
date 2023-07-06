@@ -1,20 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Car } from './interfaces/car.interface';
+import { v4 as uuid } from 'uuid';
+import { CreateCarDto, UpdateCarDto } from './dto';
 
 @Injectable()
 export class CarsService {
-  private cars = [
+  private cars: Car[] = [
     {
-      id: 1,
+      id: uuid(),
       brand: 'Toyota',
       model: 'Prius',
     },
     {
-      id: 2,
+      id: uuid(),
       brand: 'Honda',
       model: 'CRV',
     },
     {
-      id: 3,
+      id: uuid(),
       brand: 'Jeep',
       model: 'Patriot',
     },
@@ -24,7 +27,40 @@ export class CarsService {
     return this.cars;
   }
 
-  findOneById(id: number) {
-    return this.cars.find((car) => car.id === id);
+  findOneById(id: string) {
+    const car = this.cars.find((car) => car.id === id);
+    if (!car) throw new NotFoundException(`Car with id '${id}' not found`);
+    return car;
+  }
+
+  create(createCarDto: CreateCarDto) {
+    const newCar: Car = {
+      id: uuid(),
+      ...createCarDto,
+    };
+    this.cars.push(newCar);
+    return newCar;
+  }
+
+  update(id: string, updateCarDto: UpdateCarDto) {
+    let carDb = this.findOneById(id);
+
+    this.cars = this.cars.map((car) => {
+      if (car.id === id) {
+        carDb = {
+          ...carDb,
+          ...updateCarDto,
+          id,
+        };
+        return carDb;
+      }
+      return car;
+    });
+    return carDb;
+  }
+
+  delete(id: string) {
+    const car = this.findOneById(id);
+    this.cars = this.cars.filter((car) => car.id !== id);
   }
 }
