@@ -19,7 +19,13 @@ npm i -g @nest/cli
 ```
 dpcker-compose up -d
 ```
-4. Populate database with seed
+5. Clone **.env.example** file to **.env**
+6. Fill environments variables on **.env** file
+7. Start the application
+```
+yarn start:dev
+```
+8. Populate database with seed
 ```
 GET {{base_url}}/api/v1/seed
 ```
