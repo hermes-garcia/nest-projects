@@ -19,6 +19,10 @@ npm i -g @nest/cli
 ```
 dpcker-compose up -d
 ```
+4. Populate database with seed
+```
+GET {{base_url}}/api/v1/seed
+```
 
 ## Stack
 * NestJS
