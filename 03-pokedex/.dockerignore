@@ -1,0 +1,7 @@
+node_modules/
+dist/
+mongo/
+.idea/
+.git/
+.gitignore
+README.md

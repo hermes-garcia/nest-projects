@@ -30,6 +30,13 @@ yarn start:dev
 GET {{base_url}}/api/v1/seed
 ```
 
+## Production Build
+1. Create `.env.prod` file
+2. Build image with following:
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
+
 ## Stack
 * NestJS
 * MongoDB
