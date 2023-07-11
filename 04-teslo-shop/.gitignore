@@ -40,3 +40,7 @@ postgres/
 #Env
 .env*
 !.env.example
+
+#Assets
+static/products/*.jpg
+static/uploads/*.jpg
